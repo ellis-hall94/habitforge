@@ -1,4 +1,5 @@
-🧩 HabitForge — Full‑Stack Habit Tracking App
+# **🧩 HabitForge — Full‑Stack Habit Tracking App**
+
 HabitForge is a full‑stack habit‑tracking application built with ASP.NET Core, Vue, and SQL.
 It focuses on clean architecture, modern UI, and actionable analytics to help users build consistent habits.
 
@@ -14,50 +15,54 @@ Analytics and background processing (future integration with InsightWorker)
 
 CI/CD, documentation, and production‑ready structure
 
-📌 Features (Planned & In Progress)
+# **📌 Features (Planned & In Progress)**
+
 ✔️ Core Features
-Create, edit, and delete habits
+- Create, edit, and delete habits
 
-Daily check‑ins
+- Daily check‑ins
 
-Streak tracking
+- Streak tracking
 
-Progress visualisation
+- Progress visualisation
 
-Responsive UI (mobile‑first)
+- Responsive UI (mobile‑first)
 
-🔐 Authentication
-User registration & login
+# **🔐 Authentication**
 
-JWT‑based authentication
+- User registration & login
 
-Secure API endpoints
+- JWT‑based authentication
 
-📊 Analytics (Phase 2)
-Completion trends
+- Secure API endpoints
 
-Streak history
+# **📊 Analytics (Phase 2)**
 
-Habit performance scoring
+- Completion trends
 
-Integration with InsightWorker (Python microservice)
+- Streak history
 
-🛠 Engineering Focus
-Clean API architecture
+- Habit performance scoring
 
-Entity Framework Core
+- Integration with InsightWorker (Python microservice)
 
-Repository & service layers
+# **🛠 Engineering Focus**
 
-Vue component architecture
+- Clean API architecture
 
-State management (Pinia or Vuex)
+- Entity Framework Core
 
-CI pipeline (GitHub Actions)
+- Repository & service layers
 
-Docker support (planned)
+- Vue component architecture
 
-🧱 Project Structure
+- State management (Pinia or Vuex)
+
+- CI pipeline (GitHub Actions)
+
+- Docker support (planned)
+
+# **🧱 Project Structure**
 ```Code
 habitforge/
 ├── backend/        # ASP.NET Core Web API
@@ -72,99 +77,111 @@ habitforge/
     └── workflows/
         └── ci.yml
 ```
+
 This structure mirrors the template repo and keeps backend, frontend, and documentation cleanly separated.
 
-🧭 Roadmap
-Phase 1 — Backend Foundations
-ASP.NET Core project setup
+# **🧭 Roadmap**
 
-Habit entity + EF Core migrations
+## **Phase 1 — Backend Foundations**
 
-CRUD endpoints
+- ASP.NET Core project setup
 
-JWT authentication
+- Habit entity + EF Core migrations
 
-Unit tests
+- CRUD endpoints
 
-Phase 2 — Frontend Foundations
-Vue project setup
+- JWT authentication
 
-Login/register pages
+- Unit tests
 
-Habit dashboard
+## **Phase 2 — Frontend Foundations**
 
-Check‑in UI
+- Vue project setup
 
-API integration
+- Login/register pages
 
-Phase 3 — Analytics & Insights
-Streak calculations
+- Habit dashboard
 
-Trend charts
+- Check‑in UI
 
-Integration with InsightWorker
+- API integration
 
-Background processing
+## **Phase 3 — Analytics & Insights**
 
-Phase 4 — Polish & Deployment
-CI/CD pipeline
+- Streak calculations
 
-Docker support
+- Trend charts
 
-Azure deployment
+- Integration with InsightWorker
 
-Documentation & screenshots
+- Background processing
 
-🧪 Tech Stack
-Backend
-C#
+## **Phase 4 — Polish & Deployment**
 
-ASP.NET Core
+- CI/CD pipeline
 
-Entity Framework Core
+- Docker support
 
-SQL Server or PostgreSQL
+- Azure deployment
 
-JWT Authentication
+- Documentation & screenshots
 
-Frontend
-Vue
+# **🧪 Tech Stack**
 
-TypeScript (optional)
+## **Backend**
 
-Pinia / Vuex
+- C#
 
-TailwindCSS or custom CSS
+- ASP.NET Core
 
-Tooling
-GitHub Actions
+- Entity Framework Core
 
-Docker (planned)
+- SQL Server or PostgreSQL
 
-.editorconfig
+- JWT Authentication
 
-REST API documentation (OpenAPI/Swagger)
+## **Frontend**
 
-🗺 Why HabitForge Exists
+- Vue
+
+- TypeScript (optional)
+
+- Pinia / Vuex
+
+- TailwindCSS or custom CSS
+
+## **Tooling**
+
+- GitHub Actions
+
+- Docker (planned)
+
+- .editorconfig
+
+- REST API documentation (OpenAPI/Swagger)
+
+# **🗺 Why HabitForge Exists**
+
 This project is designed to demonstrate:
 
-Full‑stack engineering capability
+- Full‑stack engineering capability
 
-Clean, maintainable architecture
+- Clean, maintainable architecture
 
-Ability to build real‑world features end‑to‑end
+- Ability to build real‑world features end‑to‑end
 
-Integration of multiple technologies (C#, Vue, Python microservices)
+- Integration of multiple technologies (C#, Vue, Python microservices)
 
-Professional documentation and project planning
+- Professional documentation and project planning
 
-It’s the centrepiece of my portfolio and will evolve as I build out the rest of the ecosystem.
+- It’s the centrepiece of my portfolio and will evolve as I build out the rest of the ecosystem.
 
-📎 Related Projects
-InsightWorker — Python analytics microservice
+# **📎 Related Projects**
 
-TaskFlow Engine — C# workflow automation engine
+- InsightWorker — Python analytics microservice
 
-KanbanCraft — Vue drag‑and‑drop Kanban board
+- TaskFlow Engine — C# workflow automation engine
 
-Project Template — Base structure for all full‑stack projects
+- KanbanCraft — Vue drag‑and‑drop Kanban board
+
+- Project Template — Base structure for all full‑stack projects
