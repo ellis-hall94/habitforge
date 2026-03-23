@@ -1,4 +1,4 @@
-namespace HabitFogre.Api.Models.DTOs;
+namespace HabitForge.Api.Models.DTOs;
 
 public class RegisterRequest
 {
