@@ -34,3 +34,15 @@ export interface HabitResponse {
   isArchived: boolean
   userId: string
 }
+
+export interface HabitCompletionResponse {
+  id: string
+  habitId: string
+  completedDate: string
+  createdAt: string
+}
+
+export interface ToggleCompletionResponse {
+  completed: boolean
+  completion?: HabitCompletionResponse
+}

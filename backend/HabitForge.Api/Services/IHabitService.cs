@@ -9,4 +9,6 @@ public interface IHabitService
     Task<HabitResponse> CreateHabitAsync(CreateHabitRequest request, Guid userId);
     Task<HabitResponse?> UpdateHabitAsync(Guid habitId, UpdateHabitRequest request, Guid userId);
     Task<bool> DeleteHabitAsync(Guid habitId, Guid userId);
+    Task<HabitCompletionResponse?> ToggleCompletionAsync(Guid habitId, DateOnly date, Guid userId);
+    Task<IEnumerable<HabitCompletionResponse>> GetCompletionsAsync(Guid habitId, DateOnly from, DateOnly to, Guid userId);
 }

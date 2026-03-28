@@ -27,8 +27,10 @@
         v-for="habit in habitStore.activeHabits"
         :key="habit.id"
         :habit="habit"
+        :completed-today="habitStore.isCompletedToday(habit.id)"
         @edit="openEditForm"
         @delete="handleDelete"
+        @toggle="handleToggle"
       />
     </div>
 
@@ -39,6 +41,7 @@
           v-for="habit in habitStore.archivedHabits"
           :key="habit.id"
           :habit="habit"
+          :completed-today="false"
           @edit="openEditForm"
           @delete="handleDelete"
         />
@@ -90,6 +93,10 @@ async function handleFormSubmit(payload: { name: string; description?: string; i
 async function handleDelete(id: string) {
   if (!confirm('Delete this habit?')) return
   await habitStore.removeHabit(id)
+}
+
+async function handleToggle(habitId: string) {
+  await habitStore.toggleCheckin(habitId)
 }
 </script>
 

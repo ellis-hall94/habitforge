@@ -73,6 +73,33 @@ public class HabitsController : ControllerBase
         return deleted ? NoContent() : NotFound();
     }
 
+    [HttpPost("{id:guid}/completions")]
+    public async Task<IActionResult> ToggleCompletion(Guid id, [FromQuery] DateOnly? date)
+    {
+        var userId = GetUserIdFromClaims();
+        if (userId is null)
+            return Unauthorized();
+
+        var targetDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
+        var result = await _habitService.ToggleCompletionAsync(id, targetDate, userId.Value);
+
+        return result is null ? Ok(new { completed = false }) : Ok(new { completed = true, completion = result });
+    }
+
+    [HttpGet("{id:guid}/completions")]
+    public async Task<IActionResult> GetCompletions(Guid id, [FromQuery] DateOnly? from, [FromQuery] DateOnly? to)
+    {
+        var userId = GetUserIdFromClaims();
+        if (userId is null)
+            return Unauthorized();
+
+        var fromDate = from ?? DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-30));
+        var toDate = to ?? DateOnly.FromDateTime(DateTime.UtcNow);
+        var completions = await _habitService.GetCompletionsAsync(id, fromDate, toDate, userId.Value);
+
+        return Ok(completions);
+    }
+
     private Guid? GetUserIdFromClaims()
     {
         var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);

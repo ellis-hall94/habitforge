@@ -1,7 +1,18 @@
 <template>
-  <div class="habit-card" :class="{ 'habit-card--archived': habit.isArchived }">
+  <div class="habit-card" :class="{ 'habit-card--archived': habit.isArchived, 'habit-card--completed': completedToday }">
     <div class="habit-header">
-      <h3 class="habit-name">{{ habit.name }}</h3>
+      <div class="habit-header-left">
+        <button
+          v-if="!habit.isArchived"
+          class="btn-checkin"
+          :class="{ 'btn-checkin--done': completedToday }"
+          :title="completedToday ? 'Undo check-in' : 'Mark complete'"
+          @click="$emit('toggle', habit.id)"
+        >
+          {{ completedToday ? '✅' : '⬜' }}
+        </button>
+        <h3 class="habit-name">{{ habit.name }}</h3>
+      </div>
       <div class="habit-actions">
         <button class="btn-icon" title="Edit" @click="$emit('edit', habit)">✏️</button>
         <button class="btn-icon" title="Delete" @click="$emit('delete', habit.id)">🗑️</button>
@@ -21,11 +32,13 @@ import type { HabitResponse } from '@/services/types'
 
 const props = defineProps<{
   habit: HabitResponse
+  completedToday: boolean
 }>()
 
 defineEmits<{
   edit: [habit: HabitResponse]
   delete: [id: string]
+  toggle: [id: string]
 }>()
 
 const formattedDate = computed(() =>
@@ -50,11 +63,36 @@ const formattedDate = computed(() =>
   opacity: 0.6;
 }
 
+.habit-card--completed {
+  border-color: var(--color-success);
+  background: #f0fdf4;
+}
+
 .habit-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+}
+
+.habit-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-checkin {
+  padding: 0.15rem;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.btn-checkin:hover {
+  transform: scale(1.15);
 }
 
 .habit-name {

@@ -3,6 +3,7 @@ using System;
 using HabitForge.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HabitForge.Api.Migrations
 {
     [DbContext(typeof(HabitForgeDbContext))]
-    partial class HabitForgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260328185315_AddHabitCompletions")]
+    partial class AddHabitCompletions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
