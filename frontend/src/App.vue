@@ -1,9 +1,13 @@
 <template>
-  <div id="app-root">
+  <AppLayout v-if="route.meta.requiresAuth">
     <RouterView />
-  </div>
+  </AppLayout>
+  <RouterView v-else />
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
+import AppLayout from '@/components/layout/AppLayout.vue'
+
+const route = useRoute()
 </script>
