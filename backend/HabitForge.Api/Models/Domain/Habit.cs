@@ -10,4 +10,5 @@ public class Habit
     public bool IsArchived { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
+    public ICollection<HabitCompletion> Completions { get; set; } = new List<HabitCompletion>();
 }

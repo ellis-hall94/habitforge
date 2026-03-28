@@ -90,4 +90,60 @@ public class HabitService : IHabitService
         IsArchived = habit.IsArchived,
         UserId = habit.UserId
     };
+
+    public async Task<HabitCompletionResponse?> ToggleCompletionAsync(Guid habitId, DateOnly date, Guid userId)
+    {
+        var habit = await _dbContext.Habits
+            .FirstOrDefaultAsync(h => h.Id == habitId && h.UserId == userId);
+
+        if (habit is null)
+            return null;
+
+        var existing = await _dbContext.HabitCompletions
+            .FirstOrDefaultAsync(c => c.HabitId == habitId && c.CompletedDate == date);
+
+        if (existing is not null)
+        {
+            _dbContext.HabitCompletions.Remove(existing);
+            await _dbContext.SaveChangesAsync();
+            return null;
+        }
+
+        var completion = new HabitCompletion
+        {
+            Id = Guid.NewGuid(),
+            HabitId = habitId,
+            CompletedDate = date,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _dbContext.HabitCompletions.Add(completion);
+        await _dbContext.SaveChangesAsync();
+
+        return MapToCompletionResponse(completion);
+    }
+
+    public async Task<IEnumerable<HabitCompletionResponse>> GetCompletionsAsync(Guid habitId, DateOnly from, DateOnly to, Guid userId)
+    {
+        var habit = await _dbContext.Habits
+            .FirstOrDefaultAsync(h => h.Id == habitId && h.UserId == userId);
+
+        if (habit is null)
+            return Enumerable.Empty<HabitCompletionResponse>();
+
+        var completions = await _dbContext.HabitCompletions
+            .Where(c => c.HabitId == habitId && c.CompletedDate >= from && c.CompletedDate <= to)
+            .OrderByDescending(c => c.CompletedDate)
+            .ToListAsync();
+
+        return completions.Select(MapToCompletionResponse);
+    }
+
+    private static HabitCompletionResponse MapToCompletionResponse(HabitCompletion completion) => new()
+    {
+        Id = completion.Id,
+        HabitId = completion.HabitId,
+        CompletedDate = completion.CompletedDate,
+        CreatedAt = completion.CreatedAt
+    };
 }

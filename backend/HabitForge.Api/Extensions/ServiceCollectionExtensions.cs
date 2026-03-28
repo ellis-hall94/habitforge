@@ -82,7 +82,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHabitForgeDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<HabitForgeDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
         return services;
     }

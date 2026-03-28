@@ -9,6 +9,7 @@ public class HabitForgeDbContext : DbContext
 
     public DbSet<Habit> Habits => Set<Habit>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<HabitCompletion> HabitCompletions => Set<HabitCompletion>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,6 +21,16 @@ public class HabitForgeDbContext : DbContext
             entity.HasOne(h => h.User)
                   .WithMany(u => u.Habits)
                   .HasForeignKey(h => h.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<HabitCompletion>(entity =>
+        {
+            entity.HasKey(c => c.Id);
+            entity.HasIndex(c => new { c.HabitId, c.CompletedDate }).IsUnique();
+            entity.HasOne(c => c.Habit)
+                  .WithMany(h => h.Completions)
+                  .HasForeignKey(c => c.HabitId)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
