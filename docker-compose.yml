@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Data Source=/data/HabitForge.db
+      - JwtSettings__Secret=DockerDevSecretKeyAtLeast32Characters!
+      - JwtSettings__Issuer=HabitForge
+      - JwtSettings__Audience=HabitForgeClients
+      - JwtSettings__ExpiryMinutes=60
+    volumes:
+      - habitforge-data:/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  habitforge-data:
