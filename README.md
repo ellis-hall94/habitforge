@@ -1,4 +1,4 @@
-﻿# HabitForge
+# HabitForge
 
 A full-stack habit-tracking application built with **ASP.NET Core** and **Vue 3**. Create habits, track daily completions, monitor streaks, and visualise progress through analytics charts.
 
@@ -123,3 +123,22 @@ habitforge/
 - [x] **Phase 2** — Frontend foundations (Vue 3, routing, Pinia stores, API integration)
 - [x] **Phase 3** — Analytics and insights (streaks, trends, Chart.js visualisations)
 - [x] **Phase 4** — Polish and deployment (Docker, CI/CD, tests, documentation)
+
+## Future Plans
+
+The following improvements are planned to enhance the project's architecture, documentation, testing, and DevOps practices:
+
+### Repository Structure
+- [ ] Split the monorepo into separate `habitforge-backend` and `habitforge-frontend` repositories for clearer separation of concerns, independent CI/CD pipelines, and easier dependency management.
+
+### API Documentation
+- [ ] Integrate **Swashbuckle** into the ASP.NET Core backend to auto-generate interactive OpenAPI/Swagger documentation for all API endpoints.
+
+### Integration Testing
+- [ ] Adopt [Testcontainers for .NET](https://dotnet.testcontainers.org/modules/mssql/) in xUnit integration tests to spin up real database containers, replacing the EF Core InMemory provider for more realistic persistence layer testing.
+
+### Docker Optimisation
+- [ ] Add `**/.git` to all `.dockerignore` files to prevent the repository history from being copied into container images, reducing image size and avoiding accidental exposure of source control metadata.
+
+### CI/CD Workflow Naming
+- [ ] Rename GitHub Actions workflow files to reflect their intent (e.g., `ci.yml` → `deploy.yaml`). After the repository split, each repo will have its own purpose-named workflow (e.g., `deploy.yaml`, `test.yaml`).
