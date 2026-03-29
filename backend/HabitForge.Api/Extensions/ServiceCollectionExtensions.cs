@@ -14,7 +14,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHabitForgeServices(this IServiceCollection services)
     {
         services.AddScoped<IHabitService, HabitService>();
+        services.AddScoped<IAnalyticsService, AnalyticsService>();
+        services.AddScoped<IAnalyticsProvider, AnalyticsService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddHostedService<AnalyticsBackgroundService>();
         return services;
     }
 
