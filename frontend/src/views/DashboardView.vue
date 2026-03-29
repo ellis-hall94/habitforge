@@ -28,6 +28,7 @@
         :key="habit.id"
         :habit="habit"
         :completed-today="habitStore.isCompletedToday(habit.id)"
+        :current-streak="getStreakForHabit(habit.id)"
         @edit="openEditForm"
         @delete="handleDelete"
         @toggle="handleToggle"
@@ -52,6 +53,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { fetchAllStreaks } from '@/services/analyticsService'
+import type { HabitStreakResponse } from '@/services/types'
 import { useHabitStore } from '@/stores/habits'
 import HabitCard from '@/components/HabitCard.vue'
 import HabitForm from '@/components/HabitForm.vue'
@@ -61,9 +64,15 @@ const habitStore = useHabitStore()
 
 const showForm = ref(false)
 const editingHabit = ref<HabitResponse | null>(null)
+const streaks = ref<HabitStreakResponse[]>([])
 
-onMounted(() => {
-  habitStore.loadHabits()
+function getStreakForHabit(habitId: string): number {
+  return streaks.value.find((s) => s.habitId === habitId)?.currentStreak ?? 0
+}
+
+onMounted(async () => {
+  await habitStore.loadHabits()
+  streaks.value = await fetchAllStreaks()
 })
 
 function openCreateForm() {

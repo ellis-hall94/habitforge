@@ -21,6 +21,7 @@
     <p v-if="habit.description" class="habit-description">{{ habit.description }}</p>
     <div class="habit-footer">
       <span class="habit-date">Created {{ formattedDate }}</span>
+      <span v-if="currentStreak" class="habit-streak">🔥 {{ currentStreak }} day streak</span>
       <span v-if="habit.isArchived" class="habit-badge habit-badge--archived">Archived</span>
     </div>
   </div>
@@ -33,6 +34,8 @@ import type { HabitResponse } from '@/services/types'
 const props = defineProps<{
   habit: HabitResponse
   completedToday: boolean
+  currentStreak?: number
+  longestStreak?: number
 }>()
 
 defineEmits<{
@@ -134,6 +137,12 @@ const formattedDate = computed(() =>
 .habit-date {
   font-size: 0.75rem;
   color: var(--color-text-muted);
+}
+
+.habit-streak {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ea580c;
 }
 
 .habit-badge {
