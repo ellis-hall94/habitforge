@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HabitForge.Api.Services;
 
-public class AnalyticsService : IAnalyticsService
+public class AnalyticsService : IAnalyticsService, IAnalyticsProvider
 {
         private readonly HabitForgeDbContext _dbContext;
 
@@ -125,6 +125,11 @@ public class AnalyticsService : IAnalyticsService
             OverallCompletionRate = Math.Round(completionRate, 1),
             HabitStreaks = habitStreaks
         };
+    }
+
+    public Task<AnalyticsSummaryResponse> GenerateInsightsAsync(Guid userId)
+    {
+        return GetSummaryAsync(userId);
     }
 
         private static StreakResponse CalculateStreaks(List<DateOnly> completedDatesDescending)
