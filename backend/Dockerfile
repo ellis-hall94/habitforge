@@ -5,7 +5,7 @@ COPY HabitForge.Api/HabitForge.Api.csproj HabitForge.Api/
 RUN dotnet restore HabitForge.Api/HabitForge.Api.csproj
 
 COPY . .
-RUN dotnet publish HabitForge.Api/HabitForge.Api.csproj -c Release -o /app/publish --no-restore
+RUN dotnet publish HabitForge.Api/HabitForge.Api.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
