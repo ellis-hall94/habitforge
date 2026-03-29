@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAnalyticsService, AnalyticsService>();
         services.AddScoped<IAnalyticsProvider, AnalyticsService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddHostedService<AnalyticsBackgroundService>();
         return services;
     }
 
