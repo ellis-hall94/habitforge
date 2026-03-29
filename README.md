@@ -1,187 +1,125 @@
-# **🧩 HabitForge — Full‑Stack Habit Tracking App**
+﻿# HabitForge
 
-HabitForge is a full‑stack habit‑tracking application built with ASP.NET Core, Vue, and SQL.
-It focuses on clean architecture, modern UI, and actionable analytics to help users build consistent habits.
+A full-stack habit-tracking application built with **ASP.NET Core** and **Vue 3**. Create habits, track daily completions, monitor streaks, and visualise progress through analytics charts.
 
-This project is part of my full‑stack engineering portfolio and demonstrates:
+## Quick Start (Docker)
 
-API design and backend architecture in C# / .NET
-
-Frontend component design with Vue
-
-Authentication, state management, and data persistence
-
-Analytics and background processing (future integration with InsightWorker)
-
-CI/CD, documentation, and production‑ready structure
-
-# **📌 Features (Planned & In Progress)**
-
-✔️ Core Features
-- Create, edit, and delete habits
-
-- Daily check‑ins
-
-- Streak tracking
-
-- Progress visualisation
-
-- Responsive UI (mobile‑first)
-
-# **🔐 Authentication**
-
-- User registration & login
-
-- JWT‑based authentication
-
-- Secure API endpoints
-
-# **📊 Analytics (Phase 2)**
-
-- Completion trends
-
-- Streak history
-
-- Habit performance scoring
-
-- Integration with InsightWorker (Python microservice)
-
-# **🛠 Engineering Focus**
-
-- Clean API architecture
-
-- Entity Framework Core
-
-- Repository & service layers
-
-- Vue component architecture
-
-- State management (Pinia or Vuex)
-
-- CI pipeline (GitHub Actions)
-
-- Docker support (planned)
-
-# **🧱 Project Structure**
-```Code
-habitforge/
-├── backend/        # ASP.NET Core Web API
-├── frontend/       # Vue application
-├── docs/           # Architecture notes, diagrams, decisions
-│
-├── .editorconfig
-├── .gitignore
-├── README.md
-│
-└── .github/
-    └── workflows/
-        └── ci.yml
+```bash
+git clone https://github.com/ellis-hall94/habitforge.git
+cd habitforge
+docker compose up --build
 ```
 
-This structure mirrors the template repo and keeps backend, frontend, and documentation cleanly separated.
+Open **http://localhost:3000** — register an account and start tracking habits.
 
-# **🧭 Roadmap**
+## Tech Stack
 
-## **Phase 1 — Backend Foundations**
+| Layer | Technology |
+|-------|-----------|
+| Backend | C# / ASP.NET Core 8, Entity Framework Core, SQLite |
+| Frontend | Vue 3, TypeScript, Vite 6, Pinia, Chart.js |
+| Auth | JWT (BCrypt password hashing) |
+| Testing | xUnit, EF Core InMemory |
+| CI/CD | GitHub Actions (build + test on PR) |
+| Infrastructure | Docker, Docker Compose, nginx |
 
-- ASP.NET Core project setup
+## Architecture
 
-- Habit entity + EF Core migrations
+```
+Browser → nginx (port 3000)
+             ├── Static SPA files (Vue build)
+             └── /api/* → ASP.NET Core API (port 8080)
+                             ├── Controllers
+                             ├── Services (business logic)
+                             ├── EF Core DbContext
+                             └── SQLite database
+```
 
-- CRUD endpoints
+The frontend is served by nginx, which also reverse-proxies `/api/` requests to the backend container. The API follows a controller → service → EF Core architecture with JWT authentication on protected endpoints.
 
-- JWT authentication
+## Local Development
 
-- Unit tests
+### Backend
 
-## **Phase 2 — Frontend Foundations**
+```bash
+cd backend
+dotnet restore
+dotnet run --project HabitForge.Api
+```
 
-- Vue project setup
+API runs at **http://localhost:5000** with Swagger UI available in development mode.
 
-- Login/register pages
+### Frontend
 
-- Habit dashboard
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- Check‑in UI
+Dev server runs at **http://localhost:5173** with a Vite proxy forwarding `/api` to the backend.
 
-- API integration
+### Tests
 
-## **Phase 3 — Analytics & Insights**
+```bash
+cd backend
+dotnet test
+```
 
-- Streak calculations
+## API Endpoints
 
-- Trend charts
+| Method | Route | Auth | Description |
+|--------|-------|------|-------------|
+| GET | `/api/Health` | No | Health check |
+| POST | `/api/Authentication/register` | No | Register user, returns JWT |
+| POST | `/api/Authentication/login` | No | Login, returns JWT |
+| GET | `/api/Habits` | Yes | Get all habits for user |
+| GET | `/api/Habits/{id}` | Yes | Get single habit |
+| POST | `/api/Habits` | Yes | Create habit |
+| PUT | `/api/Habits/{id}` | Yes | Update habit |
+| DELETE | `/api/Habits/{id}` | Yes | Delete habit |
+| GET | `/api/Analytics/summary` | Yes | Overall stats and per-habit streaks |
+| GET | `/api/Analytics/streaks` | Yes | All habit streaks |
+| GET | `/api/Analytics/habits/{id}/streaks` | Yes | Single habit streak |
+| GET | `/api/Analytics/habits/{id}/trends?days=30` | Yes | Daily completion trend data |
 
-- Integration with InsightWorker
+## Project Structure
 
-- Background processing
+```
+habitforge/
+├── docker-compose.yml
+├── .github/workflows/ci.yml
+├── backend/
+│   ├── Dockerfile
+│   ├── HabitForge.sln
+│   ├── HabitForge.Api/
+│   │   ├── Configuration/
+│   │   ├── Controllers/
+│   │   ├── Data/
+│   │   ├── Extensions/
+│   │   ├── Middleware/
+│   │   ├── Migrations/
+│   │   ├── Models/
+│   │   │   ├── Domain/
+│   │   │   └── DTOs/
+│   │   ├── Services/
+│   │   └── Program.cs
+│   └── HabitForge.Tests/
+│       └── Services/
+└── frontend/
+    ├── Dockerfile
+    ├── nginx.conf
+    └── src/
+        ├── components/
+        ├── router/
+        ├── services/
+        ├── stores/
+        └── views/
+```
 
-## **Phase 4 — Polish & Deployment**
+## Roadmap
 
-- CI/CD pipeline
-
-- Docker support
-
-- Azure deployment
-
-- Documentation & screenshots
-
-# **🧪 Tech Stack**
-
-## **Backend**
-
-- C#
-
-- ASP.NET Core
-
-- Entity Framework Core
-
-- SQL Server or PostgreSQL
-
-- JWT Authentication
-
-## **Frontend**
-
-- Vue
-
-- TypeScript (optional)
-
-- Pinia / Vuex
-
-- TailwindCSS or custom CSS
-
-## **Tooling**
-
-- GitHub Actions
-
-- Docker (planned)
-
-- .editorconfig
-
-- REST API documentation (OpenAPI/Swagger)
-
-# **🗺 Why HabitForge Exists**
-
-This project is designed to demonstrate:
-
-- Full‑stack engineering capability
-
-- Clean, maintainable architecture
-
-- Ability to build real‑world features end‑to‑end
-
-- Integration of multiple technologies (C#, Vue, Python microservices)
-
-- Professional documentation and project planning
-
-- It’s the centrepiece of my portfolio and will evolve as I build out the rest of the ecosystem.
-
-# **📎 Related Projects**
-
-- InsightWorker — Python analytics microservice
-
-- TaskFlow Engine — C# workflow automation engine
-
-- KanbanCraft — Vue drag‑and‑drop Kanban board
-
-- Project Template — Base structure for all full‑stack projects
+- [x] **Phase 1** — Backend foundations (API, auth, CRUD, EF Core)
+- [x] **Phase 2** — Frontend foundations (Vue 3, routing, Pinia stores, API integration)
+- [x] **Phase 3** — Analytics and insights (streaks, trends, Chart.js visualisations)
+- [x] **Phase 4** — Polish and deployment (Docker, CI/CD, tests, documentation)
