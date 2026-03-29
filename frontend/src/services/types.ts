@@ -46,3 +46,35 @@ export interface ToggleCompletionResponse {
   completed: boolean
   completion?: HabitCompletionResponse
 }
+
+export interface StreakResponse {
+  currentStreak: number
+  longestStreak: number
+  lastCompletedDate: string | null
+}
+
+export interface HabitStreakResponse {
+  habitId: string
+  habitName: string
+  currentStreak: number
+  longestStreak: number
+  lastCompletedDate: string | null
+}
+
+export interface CompletionTrendPoint {
+  date: string
+  completed: boolean
+}
+
+export interface HabitTrendResponse {
+  habitId: string
+  habitName: string
+  dataPoints: CompletionTrendPoint[]
+}
+
+export interface AnalyticsSummaryResponse {
+  totalHabits: number
+  totalCompletionsThisWeek: number
+  overallCompletionRate: number
+  habitStreaks: HabitStreakResponse[]
+}
